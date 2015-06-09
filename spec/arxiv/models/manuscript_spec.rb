@@ -2,12 +2,17 @@ require 'spec_helper'
 
 module Arxiv
   describe Manuscript do
-    let!(:manuscript) { Arxiv.get('1202.0819') }
+    let!(:nine_digit_manuscript) { Arxiv.get('1501.00001') }
+    let!(:eight_digit_manuscript) { Arxiv.get('1202.0819') }
+    let!(:manuscript) { eight_digit_manuscript }
     let!(:legacy_manuscript) { Arxiv.get('math.DG/0510097v1') }
 
     describe "arxiv_url" do
-      it "should fetch the link to the manuscript's page on arXiv" do
-        expect(manuscript.arxiv_url).to eq "http://arxiv.org/abs/1202.0819v1"
+      it "should fetch the link to the manuscript's page on arXiv for a current 9-digit Arxiv ID" do
+        expect(nine_digit_manuscript.arxiv_url).to eq "http://arxiv.org/abs/1501.00001v1"
+      end
+      it "should fetch the link to the manuscript's page on arXiv for a current 8-digit Arxiv ID" do
+        expect(eight_digit_manuscript.arxiv_url).to eq "http://arxiv.org/abs/1202.0819v1"
       end
     end
 
@@ -48,8 +53,11 @@ module Arxiv
     end
 
     describe "arxiv_versioned_id" do
-      it "should return the unique versioned document id used by arXiv for a current manuscript" do
-        expect(manuscript.arxiv_versioned_id).to eq '1202.0819v1'
+      it "should return the unique versioned document id used by arXiv for a current 9-digit manuscript" do
+        expect(nine_digit_manuscript.arxiv_versioned_id).to eq '1501.00001v1'
+      end
+      it "should return the unique versioned document id used by arXiv for a current 8-digit manuscript" do
+        expect(eight_digit_manuscript.arxiv_versioned_id).to eq '1202.0819v1'
       end
       it "should return the unique versioned document id used by arXiv for a legacy manuscript" do
         expect(legacy_manuscript.arxiv_versioned_id).to eq 'math/0510097v1'
@@ -57,8 +65,11 @@ module Arxiv
     end
 
     describe "arxiv_id" do
-      it "should return the unique document id used by arXiv for a current manuscript" do
-        expect(manuscript.arxiv_id).to eq '1202.0819'
+      it "should return the unique document id used by arXiv for a current 9-digit manuscript" do
+        expect(nine_digit_manuscript.arxiv_id).to eq '1501.00001'
+      end
+      it "should return the unique document id used by arXiv for a current 8-digit manuscript" do
+        expect(eight_digit_manuscript.arxiv_id).to eq '1202.0819'
       end
       it "should return the unique document id used by arXiv for a legacy manuscript" do
         expect(legacy_manuscript.arxiv_id).to eq 'math/0510097'
@@ -66,8 +77,11 @@ module Arxiv
     end
 
     describe "version" do
-      it "should return the manuscript's version number for a current manuscript" do
-        expect(manuscript.version).to eq 1
+      it "should return the manuscript's version number for a current 9 digit manuscript manuscript" do
+        expect(nine_digit_manuscript.version).to eq 1
+      end
+      it "should return the manuscript's version number for a current 8 digit manuscript manuscript" do
+        expect(eight_digit_manuscript.version).to eq 1
       end
       it "should return the manuscript's version number for a legacy manuscript" do
         expect(legacy_manuscript.version).to eq 1

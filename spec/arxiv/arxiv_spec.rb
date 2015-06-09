@@ -10,7 +10,19 @@ module Arxiv
 
   describe "get" do
 
-    context "when using the current arXiv id format" do
+    context "when using the current 9-digit arXiv id format" do
+      it "should fetch a manuscript when passed an id" do
+        expect(Arxiv.get('1501.00001')).to fetch("An OFDM Signal Identification Method for Wireless Communications Systems")
+      end
+      it "should fetch a manuscript when passed a valid id with a version number" do
+        expect(Arxiv.get('1501.00001v1')).to fetch("An OFDM Signal Identification Method for Wireless Communications Systems")
+      end
+      it "should fetch a manuscript when passed full URL" do
+        expect(Arxiv.get('http://arxiv.org/abs/1501.0001')).to fetch("An OFDM Signal Identification Method for Wireless Communications Systems")
+      end
+    end
+
+    context "when using the 8-digit arXiv id format" do
       it "should fetch a manuscript when passed an id" do
         expect(Arxiv.get('1202.0819')).to fetch("Laser frequency comb techniques for precise astronomical spectroscopy")
       end
