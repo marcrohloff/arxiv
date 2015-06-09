@@ -93,6 +93,12 @@ module Arxiv
       end
     end
 
+    describe "doi_url" do
+      it "should return the url to link to the DOI" do
+        expect(manuscript.doi_url).to eq 'http://dx.doi.org/10.1111/j.1365-2966.2012.20656.x'
+      end
+    end
+
     describe "authors" do
       it "should return an array of all the manuscript's authors" do
         expect(manuscript.authors.size).to eq 5

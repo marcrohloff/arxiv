@@ -55,5 +55,9 @@ module Arxiv
       end
     end
 
+    def doi_url
+      links.find { |l| l.title == "doi" }.url
+    end
+
   end
 end
